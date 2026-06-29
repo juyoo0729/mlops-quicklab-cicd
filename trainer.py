@@ -65,13 +65,17 @@ def train(model, train_loader):
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
             labels = batch["labels"].to(device)
-            outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+            outputs = model(
+                input_ids=input_ids, attention_mask=attention_mask, labels=labels
+            )
             loss = outputs.loss
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
             if (i + 1) % 20 == 0:
-                print(f"Epoch [{epoch+1}/{NUM_EPOCHS}], Step [{i+1}/{total_step}], Loss: {loss.item():.4f}")
+                print(
+                    f"Epoch [{epoch+1}/{NUM_EPOCHS}], Step [{i+1}/{total_step}], Loss: {loss.item():.4f}"
+                )
 
 
 def evaluate(model, val_loader):
@@ -99,7 +103,9 @@ def save_model(model):
 
 if __name__ == "__main__":
     tokenizer = BertTokenizer.from_pretrained(MODEL_NAME)
-    model = BertForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS).to(device)
+    model = BertForSequenceClassification.from_pretrained(
+        MODEL_NAME, num_labels=NUM_LABELS
+    ).to(device)
     train_set, val_set = load_data(tokenizer)
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_set, batch_size=BATCH_SIZE, shuffle=False)
