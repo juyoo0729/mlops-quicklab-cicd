@@ -9,10 +9,10 @@ MODEL_NAME = "klue/bert-base"
 NUM_LABELS = 2
 MAX_LEN = 128
 BATCH_SIZE = 16
-NUM_EPOCHS = 2
+NUM_EPOCHS = 1
 LEARNING_RATE = 2e-5
-TRAIN_SUBSET = 3000
-EVAL_SUBSET = 1000
+TRAIN_SUBSET = 100
+EVAL_SUBSET = 100
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
